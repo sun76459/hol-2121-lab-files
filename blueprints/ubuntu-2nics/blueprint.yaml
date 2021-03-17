@@ -1,5 +1,5 @@
 formatVersion: 1
-name: ubuntu
+name: ubuntu-2nics
 inputs: {}
 resources:
   machine_1:
