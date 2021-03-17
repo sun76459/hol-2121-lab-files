@@ -1,7 +1,17 @@
 formatVersion: 1
 version: 1
 name: ubuntu-2nics
-inputs: {}
+inputs:
+  select_network:
+    type: string
+    title: NIC2 Network
+    enum:
+      - deadnet-1-vsphere
+      - deadnet-2-vsphere
+      - deadnet-1-nsx
+      - deadnet-2-nsx
+    default: deadnet-1-vsphere
+    readOnly: false
 resources:
   machine_1:
     type: Cloud.vSphere.Machine
@@ -14,14 +24,14 @@ resources:
         - network: '${resource.network_1.id}'
         - network: '${resource.network_2.id}'
   network_1:
-    type: Cloud.NSX.Network
-    properties:
-      networkType: routed
-      constraints:
-        - tag: 'net:on-demand'
-  network_2:
     type: Cloud.vSphere.Network
     properties:
       networkType: existing
       constraints:
         - tag: 'env:vsphere'
+  network_2:
+    type: Cloud.vSphere.Network
+    properties:
+      networkType: existing
+      constraints:
+        - tag: '${input.select_network}'
