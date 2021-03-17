@@ -1,21 +1,26 @@
 formatVersion: 1
-name: multiple-nic-vm
-version: 1
+name: ubuntu
 inputs: {}
 resources:
-  ubuntu:
+  machine_1:
     type: Cloud.vSphere.Machine
     properties:
-      image: Ubuntu18
-      flavor: tiny
+      image: ubuntu
+      flavor: Small
       constraints:
-        - tag: 'cloud:vsphere'
+        - tag: 'env:vsphere'
       networks:
-        - network: '${resource.vsphere_network.id}'
-          assignment: static
-  vsphere_network:
+        - network: '${resource.network_1.id}'
+        - network: '${resource.network_2.id}'
+  network_1:
+    type: Cloud.NSX.Network
+    properties:
+      networkType: routed
+      constraints:
+        - tag: 'net:on-demand'
+  network_2:
     type: Cloud.vSphere.Network
     properties:
       networkType: existing
-      constraints:
-        - tag: 'net:vsphere'
+      constraints: 
+        - tag: 'env:vsphere'
