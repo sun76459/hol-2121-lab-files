@@ -4,13 +4,10 @@ name: ubuntu-2nics
 inputs:
   select_network:
     type: string
-    title: NIC2 Network
+    title: 'Select Network:'
     enum:
-      - deadnet-1-vsphere
-      - deadnet-2-vsphere
-      - deadnet-1-nsx
-      - deadnet-2-nsx
-    default: deadnet-1-vsphere
+      - 'net:deadnet'
+    default: 'net:deadnet'
     readOnly: false
 resources:
   machine_1:
@@ -28,7 +25,7 @@ resources:
     properties:
       networkType: existing
       constraints:
-        - tag: 'env:vsphere'
+        - tag: 'net:vsphere'
   network_2:
     type: Cloud.vSphere.Network
     properties:
