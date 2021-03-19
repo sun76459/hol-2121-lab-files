@@ -1,14 +1,7 @@
 formatVersion: 1
 version: 1
 name: ubuntu-2nics
-inputs:
-  select_network:
-    type: string
-    title: 'Select Network:'
-    enum:
-      - 'net:deadnet'
-    default: 'net:deadnet'
-    readOnly: false
+inputs: {}
 resources:
   machine_1:
     type: Cloud.vSphere.Machine
@@ -25,10 +18,11 @@ resources:
     properties:
       networkType: existing
       constraints:
-        - tag: 'net:vsphere'
+        - tag: "!network-type:deadnet:hard"
   network_2:
     type: Cloud.vSphere.Network
     properties:
       networkType: existing
       constraints:
-        - tag: '${input.select_network}'
+        - tag: "network-type:deadnet"
+        
